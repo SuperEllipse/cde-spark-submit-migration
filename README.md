@@ -14,7 +14,7 @@ Cloudera Data Engineering provides a command line tool that makes migration of s
 - clone the repo in a folder on your mac. You have multiple ways to do this: 
     1)  If you are familiar with git command line  following command line <br> <br>
 `git clone https://github.com/SuperEllipse/cde-spark-submit-migration`
-    2) Else 
+    2) You can also directly go to the git location [here](https://github.com/SuperEllipse/cde-spark-submit-migration )
 
 
 ## Step 2: Executing Spark Submit Commands 

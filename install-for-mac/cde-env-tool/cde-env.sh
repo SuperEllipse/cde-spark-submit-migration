@@ -2,7 +2,7 @@
 
 # set -e
 
-CLOUDERA_BIN=/opt/cloudera/bin
+CLOUDERA_BIN=/Users/vrajagopalan/bin
 OSTYPE=$(uname)
 echo "os type: ${OSTYPE}"
 

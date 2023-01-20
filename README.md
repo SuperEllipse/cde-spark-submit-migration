@@ -62,17 +62,16 @@ In this step we will activate the user profile that we have created and then sub
 ![folder details](./install-for-mac/cde-env-tool/img/folder-details.png)
 - We now need to activate the profile we created earlier in our config.yaml file. To do so, execute the command below <br>
 ` cde-env.sh activate -p vc-1`  <br>
-- Now we are ready to execute the spark-submit command on our virtual cluster using our simple-spark-job.py file. This simply calculates the value of pi function as a spark job.
-'''
+- Now we are ready to execute the spark-submit command on our virtual cluster using our simple-spark-job.py file. This simply calculates the value of pi function as a spark job. <br>
+```
 spark-submit  \
     --deploy-mode client \
-    --master yarn \
     --num-executors 1 \
     --driver-memory 512m \
     --executor-memory 512m \
     --executor-cores 1 \
 ./simple-spark-job.py
-'''
+```
 <br> 
 <br> 
 You should now see a job submitted to your spark cluster, with the image below. 

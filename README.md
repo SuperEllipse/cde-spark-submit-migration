@@ -1,6 +1,6 @@
 # CDE spark-submit MIGRATION TOOL Demo : Public Cloud only
 
-Cloudera Data Engineering provides a command line tool that makes migration of spark workloads to CDE a breeze. The key advantage to using this tool is the ability to migrate spark workloads to CDE without a rewrite of the spark-submit command lines. 
+Cloudera Data Engineering (CDE) provides a command line tool that makes migration of spark workloads to CDE a breeze. The key advantage to using this tool is the ability to migrate spark workloads to CDE without a rewrite of the spark-submit command lines. 
         While this tool works on both Public and private form factors, this example is specific for running a spark-submit workload on **Public Cloud CDE Cluster only** 
 
 <br>
@@ -11,7 +11,6 @@ Cloudera Data Engineering provides a command line tool that makes migration of s
 - You have successfully setup cde command line tool. If you have not done so already, please refer to  cloudera documentation [here](https://docs.cloudera.com/data-engineering/cloud/cli-access/topics/cde-cli.html)
 - Access keys for CDP. Click [here](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html) for more help documentation
 - A basic knowledge of executing Spark jobs remotely using command line tools. 
-- Clone the CDE CLI Demo in a folder on your laptop [here]( https://github.com/pdefusco/CDE_CLI_demo )
 
 ## Step 1: Setup of CDE spark-submit Migration Tool 
 - clone the repo in a folder on your mac. You have multiple ways to do this: 

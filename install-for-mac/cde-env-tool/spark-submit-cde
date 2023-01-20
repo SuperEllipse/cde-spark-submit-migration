@@ -1,0 +1,67 @@
+#!/bin/bash
+
+YARN_SPARK_SUBMIT=replace_with_yarn_spark_submit_path
+
+if [ ! -z ${CDE_CONFIG_PROFILE+x} ]; then
+    if [ "x${CDE_CONFIG_PROFILE}x" == "xx" ]; then
+        echo "CDE_CONFIG_PROFILE is empty, quit"
+        exit 1
+    elif [ "x${CDE_CONFIG_PROFILE}x" == "xyarnx" ]; then
+        SPARK_SUBMIT_TARGET=yarn
+    else
+        SPARK_SUBMIT_TARGET=cde
+    fi
+elif [ ! -d ${HOME}/.cde ]; then
+    SPARK_SUBMIT_TARGET=yarn
+elif [ -f ${HOME}/.cde/spark-submit-profile ]; then
+    while read LINE; do CDE_PROFILE=${LINE}; done < ${HOME}/.cde/spark-submit-profile
+    if [ "x${CDE_PROFILE}x" == "xyarnx" ]; then
+        SPARK_SUBMIT_TARGET=yarn
+    else
+        SPARK_SUBMIT_TARGET=cde
+    fi
+else
+    SPARK_SUBMIT_TARGET=cde
+fi
+
+echo "routing spark-submit command to ${SPARK_SUBMIT_TARGET}"
+
+if [[ ${SPARK_SUBMIT_TARGET} == "cde" && "x${CDE_PROFILE}x" != "xyarnx" ]]; then
+    CDE_BIN_PATH=$(which cde)
+    CDE_BIN_PATH=$(dirname ${CDE_BIN_PATH})
+
+    # separate spark-app arguments from spark-submit options
+    POSITIONAL=()
+    while [[ $# -gt 0 ]]; do
+        key="$1"
+        case $key in
+            --*=*)
+            POSITIONAL+=("$1")
+            shift
+            ;;
+            --*)
+            POSITIONAL+=("$1")
+            shift
+            POSITIONAL+=("$1")
+            shift
+            ;;
+            *)
+            POSITIONAL+=("$1")
+            if [ -z ${DELIMITER_ADDED+x} ]; then
+                POSITIONAL+=("--")
+                DELIMITER_ADDED=true
+            fi
+            shift
+            ;;
+        esac
+    done
+    set -- "${POSITIONAL[@]}"
+
+    if [ "x${CDE_PROFILE}x" == "xx" ]; then
+        exec ${CDE_BIN_PATH}/cde spark submit "$@"
+    else
+        exec ${CDE_BIN_PATH}/cde --config-profile ${CDE_PROFILE} spark submit "$@"
+    fi
+else
+    exec ${YARN_SPARK_SUBMIT} "$@"
+fi
